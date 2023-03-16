@@ -1,0 +1,6 @@
+[submodule "drone_ros"]
+	path = drone_ros
+	url = https://github.com/jn89b/drone_ros.git
+[submodule "mpc_ros"]
+	path = mpc_ros
+	url = https://github.com/jn89b/mpc_ros.git

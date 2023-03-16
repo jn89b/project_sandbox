@@ -1,0 +1,62 @@
+#Docker Compose file for set up 
+# Usage:
+#
+# To build the images:
+#   docker compose build
+#
+# To start up a specific service by name:
+#   docker compose up <service_name>
+#
+# To open an interactive shell to a running container:
+#   docker exec -it <container_name> bash
+
+
+services:
+  # Base image containing dependencies.
+  base:
+    image: sandbox:base
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      target: base
+    # Interactive shell
+    stdin_open: true
+    tty: true
+    # Networking and IPC for ROS 2
+    network_mode: host
+    ipc: host
+    # Allows graphical programs in the container.
+    # user: "$(id -u $USER):$(id -g $USER)"
+    environment:
+    - DISPLAY=${DISPLAY}
+    - QT_X11_NO_MITSHM=1
+    - NVIDIA_DRIVER_CAPABILITIES=all
+    volumes:
+    # Mount the source code
+    # Allows graphical programs in the container.
+    - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    command: sleep infinity
+    logging:
+      options:
+        max-size: 50m # maximum size of log file before rotation
+
+  # develop image containing the example source code.
+  develop:
+    extends: base
+    image: sandbox:develop
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      target: develop
+    environment:
+    - DISPLAY=${DISPLAY}
+    - QT_X11_NO_MITSHM=1
+    - NVIDIA_DRIVER_CAPABILITIES=all
+    volumes:
+    - ./drone_ros:/develop_ws/src/drone_ros:rw
+    - ./mpc_ros:/develop_ws/src/mpc_ros:rw
+    - ./drone_interfaces:/develop_ws/src/drone_interfaces:rw
+    command: sleep infinity
+    logging:
+      options:
+        max-size: 50m # maximum size of log file before rotation
