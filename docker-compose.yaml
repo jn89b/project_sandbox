@@ -48,6 +48,15 @@ services:
       context: .
       dockerfile: docker/Dockerfile
       target: develop
+    # Interactive shell
+    stdin_open: true
+    tty: true
+    # Networking and IPC for ROS 2
+    network_mode: host
+    ipc: host
+    #port access from the container to the host
+    ports:
+    - "10000:10000"
     environment:
     - DISPLAY=${DISPLAY}
     - QT_X11_NO_MITSHM=1
@@ -56,6 +65,8 @@ services:
     - ./drone_ros:/develop_ws/src/drone_ros:rw
     - ./mpc_ros:/develop_ws/src/mpc_ros:rw
     - ./drone_interfaces:/develop_ws/src/drone_interfaces:rw
+    - ./unity_robotics_demo:/develop_ws/src/unity_robotics_demo:rw
+    - ./unity_robotics_demo_msgs:/develop_ws/src/unity_robotics_demo_msgs:rw
     command: sleep infinity
     logging:
       options:

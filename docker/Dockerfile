@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
  python3-pip python3-opencv python3-tk python3-pyqt5.qtwebengine
 
 # Install additional Python modules
-RUN pip3 install matplotlib transforms3d
+RUN pip3 install matplotlib transforms3d install pymavlink casadi 
 
 # Install additional ROS packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -69,7 +69,7 @@ FROM base AS develop
 
 #Create an overlay workspace
 RUN mkdir -p /develop_ws/src \
-    && pip3 install pymavlink casadi 
+    && echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 
 WORKDIR /develop_ws/src
 
