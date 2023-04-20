@@ -80,6 +80,8 @@ RUN cd ../ \
     && colcon build --symlink-install \
     && source install/setup.bash 
 
+RUN apt-get install tmux -y
+
  # Set up the entrypoint
 COPY ./docker/entrypoint.sh /
 ENTRYPOINT [ "/entrypoint.sh" ]

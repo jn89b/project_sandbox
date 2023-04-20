@@ -19,7 +19,8 @@ Once that is running run a separate container using:
 docker exec -it project_sandbox-develop-1 bash
 ```
 
-## Demo
+## How to run the Sandbox
+Make sure to source everytime you build
 
 
 ## Helpful Shell Scripts/Commands
@@ -35,3 +36,5 @@ This will prune and remove any containers that have <None> tag
 ```
 xhost +local:docker 
 ```
+
+ 
