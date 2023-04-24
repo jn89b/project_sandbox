@@ -69,7 +69,8 @@ FROM base AS develop
 
 #Create an overlay workspace
 RUN mkdir -p /develop_ws/src \
-    && echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+    && echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc \
+    && apt-get install -y tmux
 
 WORKDIR /develop_ws/src
 
